@@ -29,7 +29,7 @@ chrome.runtime.onStartup.addListener(() => {
     })
 })
 
-chrome.storage.onChanges.addListener((changes, area) => {
+chrome.storage.onChanged.addListener((changes, area) => {
     if (area == "sync" && changes.blockedDomains) {
         updateRules(changes.blockedDomains.newValue);
     }
