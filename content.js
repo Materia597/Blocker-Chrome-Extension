@@ -15,6 +15,30 @@ chrome.storage.onChanged.addListener((changes, area) => {
     }
 })
 
+
+/**
+ * Tests if the url's domain is the same as a blocked website's domain.
+ * @param {string} url The url to check for matches 
+ * @returns {boolean} 
+*/
+const shouldBlock = (url) => {
+    try {
+        const u = new URL(url, window.location.href);
+        return blockedDomains.some(domain => u.hostname.includes(domain))
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Tests is the string contains of a blocked domain anywhere, not just the domain name.
+ * @param {string} url The url to check for matches
+ * @returns {boolean}
+*/
+const canBlock = (url) => {
+    return blockedDomains.some(domain => url.includes(domain))
+}
+
 const siteParameters = {
     "google": {
         elementPatterns: ['div.eA0Zlc', 'div.wHYlTd', 'div.PNCib'],
@@ -35,30 +59,6 @@ const siteParameters = {
         linkAttribute: "href"
     }
 }
-
-/**
- * Tests if the url's domain is the same as a blocked website's domain.
- * @param {string} url The url to check for matches 
- * @returns {boolean} 
- */
-const shouldBlock = (url) => {
-    try {
-        const u = new URL(url, window.location.href);
-        return blockedDomains.some(domain => u.hostname.includes(domain))
-    } catch {
-        return false;
-    }
-}
-
-/**
- * Tests is the string contains of a blocked domain anywhere, not just the domain name.
- * @param {string} url The url to check for matches
- * @returns {boolean}
- */
-const canBlock = (url) => {
-    return blockedDomains.some(domain => url.includes(domain))
-}
-
 
 /**
  * removes search results if they contain a link to a blocked domain.
