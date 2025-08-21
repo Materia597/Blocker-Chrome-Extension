@@ -1,0 +1,17 @@
+{ 
+    "manifest_version": 3,
+    "name": "Chrome Blocker Extension",
+    "version": "0.0.0",
+    "description": "",
+    "permissions": [
+        "webNavigation",
+        "tabs",
+        "storage",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "host_permissions": [],
+    "options_page": "options.html"
+}
