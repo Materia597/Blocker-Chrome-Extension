@@ -7,11 +7,20 @@
         "webNavigation",
         "tabs",
         "storage",
-        "scripting"
+        "scripting",
+        "declarativeNetRequest",
+        "declarativeNEtRequestWithHostAccess"
     ],
     "background": {
         "service_worker": "background.js"
     },
-    "host_permissions": [],
+    "host_permissions": ["<all_urls>"],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"],
+            "run_at": "document_idle"
+        }
+    ],
     "options_page": "options.html"
 }
