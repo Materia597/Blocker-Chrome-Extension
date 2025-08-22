@@ -1,4 +1,4 @@
-// Network blocking for images
+// Network blocking for images, creates blocking rules and then adds them
 const updateRules = (blockedDomains) => {
     const rules = blockedDomains.map((domain, i) => ({
         id: i + 1,
@@ -39,7 +39,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 let bannedWords = [];
 
-// sites to apply the search blocking to and the parameter they us in searches
+// sites to apply the search blocking to and the parameter they use in searches
 const sites = [
     { hostContains: "google.com", param: "q"},
     { hostContains: "bing.com", param: "q"},
@@ -84,10 +84,13 @@ chrome.storage.onChanged.addListener((changes, area) => {
     }
 })
 
+// Causes the checkAndBlock function to run when the page changes
 chrome.webNavigation.onBeforeNavigate.addListener(checkAndBlock, {
     url: sites.map (s => ({hostContains: s.hostContains}))
 })
 
+// Causes the checkAndBLock function to run when the history changes 
+// (for sites that don't actually change the page but mutate the content)
 chrome.webNavigation.onHistoryStateUpdated.addListener(checkAndBlock, {
     url: sites.map(s => ({hostContains: s.hostContains}))
 })

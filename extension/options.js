@@ -3,7 +3,9 @@ const bannedWordsTextArea = document.getElementById('banned-words')
 const blockedDomainsTextArea = document.getElementById('blocked-domains');
 
 const saveButton = document.getElementById('save-button');
-const saveStatus = document.getElementById('save-status');
+
+const bannedWordsSaveStatus = document.getElementById('banned-words-save-status')
+const blockedDomainsSaveStatus = document.getElementById('blocked-domains-save-status');
 
 // loads banned words from storage
 chrome.storage.local.get({ bannedWords: []}, (data) => {
@@ -29,11 +31,12 @@ saveButton.addEventListener("click", () => {
     
 
     chrome.storage.local.set({ bannedWords: words}, () => {
-        console.log("Banned words saved.")
+        bannedWordsSaveStatus.innerText = "Saved!";
+        setTimeout( () => {bannedWordsSaveStatus.innerText = ""}, 1500)
     })
 
     chrome.storage.sync.set({ blockedDomains: domains }, () => {
-        saveStatus.innerText = "Saved!";
-        setTimeout( () => {saveStatus.innerText = ""}, 1500);
+        blockedDomainsSaveStatus.innerText = "Saved!";
+        setTimeout( () => {blockedDomainsSaveStatus.innerText = ""}, 1500);
     })
 });

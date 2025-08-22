@@ -41,7 +41,7 @@ const canBlock = (url) => {
 
 const siteParameters = {
     "google": {
-        elementPatterns: ['div.eA0Zlc', 'div.wHYlTd', 'div.PNCib'],
+        elementPatterns: ['div.eA0Zlc', 'div.wHYlTd', 'div.PNCib', /*'div.MjjYud'*/],
         querySelectorParam: "a",
         blockCheckFunction: shouldBlock,
         linkAttribute: "href" 
@@ -83,7 +83,7 @@ const scanAndRemove = (root = document) => {
         if (checkFunction(link[siteParams.linkAttribute])) {
             for (const el of elementPatterns) {
                 let container = link.closest(el)
-                if (container) container.style.display = "none"
+                if (container) container.remove();
             }
         }
     }
