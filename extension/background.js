@@ -94,3 +94,11 @@ chrome.webNavigation.onBeforeNavigate.addListener(checkAndBlock, {
 chrome.webNavigation.onHistoryStateUpdated.addListener(checkAndBlock, {
     url: sites.map(s => ({hostContains: s.hostContains}))
 })
+
+
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "block" && sender.tab?.id) {
+        chrome.tabs.update(sender.tab.id, { url: chrome.runtime.getURL("block.html")})
+    }
+})

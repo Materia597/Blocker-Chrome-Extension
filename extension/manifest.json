@@ -18,8 +18,13 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["content.js"],
+            "js": ["searchEngineBlock.js"],
             "run_at": "document_idle"
+        },
+        {
+            "matches": ["https://*.youtube.com/*"],
+            "js": ["youtubeTitleBlock.js"],
+            "run_at": "document_end"
         }
     ],
     "options_page": "options.html"
